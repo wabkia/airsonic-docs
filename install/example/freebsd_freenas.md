@@ -131,7 +131,7 @@ netstat -an | grep 8080
 ```
 It should return a line containing the IP address of your system (or jail).
 
-> ie ```tcp4	0	0 10.0.0.10.8080	-.-	LISTEN ```
+```tcp4	0	0 10.0.0.10.8080	-.-	LISTEN ```
 
 > If in a jail it may also return the line "netstat: kvm not available: /dev/mem: No such file or directory" This can be ignored.
 
@@ -142,7 +142,7 @@ we can also use ifconfig to find the address:
         inet 10.0.0.10 netmask 0xffffff00 broadcast 10.0.0.255
 ```
 
-When we browse to http://10.0.0.10:8080, we should see "403 Access Denied"!
+When we browse to http://10.0.0.10:8080/manager, we should see "403 Access Denied"!
 Congratulations, you now have Tomcat ready to deploy Airsonic!
 
 #### Deploy Airsonic
