@@ -156,7 +156,7 @@ as FreeBSD's ffmpeg doesn't contain mp3 support by default and must be configure
 compiled by the user. Please see the full FreeBSD install guide for instructions on a user-friendly, lame-enabled, 
 and relatively clean build + install process. 
 
-[FreeBSD Transcoding with MP3 support](/docs/install/example/freebsd-freenas#transcoding-setup)
+[FreeBSD Transcoding with MP3 support](/docs/install/example/freebsd-freenas#install-ffmpeg-from-source)
 
 ##### On Windows
 
