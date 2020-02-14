@@ -17,7 +17,7 @@ address that can be seen outside of the host OS.
 
 Navigate to the Airsonic Releases page ([https://github.com/airsonic/airsonic/releases/](https://github.com/airsonic/airsonic/releases/)) and find the "Airsonic.war" link under the most recent release Right-click and "Copy link location", we will need this later.
 
-Open a shell in your jail and download Airsonic using fetch(1):
+Open a shell in your jail and download Airsonic using [fetch(1)](https://www.freebsd.org/cgi/man.cgi?query=fetch):
 ```
 fetch https://github.com/airsonic/airsonic/releases/download/v10.5.0/airsonic.war
 ```
@@ -241,6 +241,8 @@ Congratulations you have set up Airsonic!
 
 #### Transcoding setup
 
+Transcoding offers the benefit of sending a compressed (lossy) version of your music library in place of much larger lossless files. Airsonic, and most of its clients, support many formats such as ogg/Opus.
+
 If you want transcoding and DON'T need mp3 support:
 
 ```
@@ -249,10 +251,25 @@ ln -s /usr/local/bin/ffmpeg /var/airsonic/transcode/ffmpeg
 service tomcat85 restart
 ```
 
-Congratulations you have transcoding enabled!
+Congratulations you have transcoding enabled! 
 
-If you need mp3 support and most likely you will, the process is more arduous as FreeBSD's ffmpeg 
+Opus codec offers better reproduction at lower bitrates than mp3 and is a very good alternative.
+
+If you need mp3 support, the process is more arduous as FreeBSD's ffmpeg 
 doesn't contain mp3 support by default and must be configured and compiled by the user.
+
+##### Configure Opus transcoding
+
+Opus codec offers better reproduction at lower bitrates than mp3. With ffmpeg installed, we can add an Opus transcode string to Airsonic in the *Transcoding* section of the settings page.
+
+To start, we will fill in the boxes below *Add transcoding* to add an opus transcoding option for Airsonic to use.
+> | Name | Convert From | Convert To | Step 1 |
+> |:----:|:------------:|:----------:|:------:|
+> | ogg opus | mp3 ogg oga aac m4a flac wav wma aif aiff ape mpc shn | ogg | ffmpeg -i %s -c:a libopus -map 0:0 -b:a %bk -frame_duration 60 -f ogg - | 
+
+Once this is saved, set a max bitrate on your player of choice (128kb/s should be plenty) and test it out. You should see that you are now streaming in Opus at 128kb/s! 
+
+This is is a heavy-handed, "convert everything" transcoding configuration tailored to mobile applications but it's still flexible. With no max bitrate set on your player you will be sent the original version of your music.
 
 ##### Install ffmpeg from source
 

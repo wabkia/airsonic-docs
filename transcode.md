@@ -135,6 +135,29 @@ lrwxrwxrwx 1 user user   15 mai    4 19:57 ffmpeg -> /usr/bin/ffmpeg
 ```
 > **NOTE**:  `user` has to be the user that runs Airsonic
 
+##### On FreeBSD or FreeNAS
+
+If you want transcoding and DON'T need mp3 support:
+
+```
+pkg install ffmpeg
+ln -s /usr/local/bin/ffmpeg /var/airsonic/transcode/ffmpeg
+service tomcat85 restart
+```
+
+Congratulations, you have transcoding enabled! 
+
+Opus codec offers better reproduction at lower bitrates than mp3. Follow the Opus transcode guide for more information. 
+
+[FreeBSD Transcoding with ogg/Opus](/docs/install/example/freebsd-freenas#configure-opus-transcoding)
+
+If you need mp3 support for transcoding your music library, the process is more arduous 
+as FreeBSD's ffmpeg doesn't contain mp3 support by default and must be configured and 
+compiled by the user. Please see the full FreeBSD install guide for instructions on a user-friendly, lame-enabled, 
+and relatively clean build + install process. 
+
+[FreeBSD Transcoding with MP3 support](/docs/install/example/freebsd-freenas#transcoding-setup)
+
 ##### On Windows
 
 Get the ffmpeg package from the project [download page](https://ffmpeg.zeranoe.com/builds/).
